@@ -1,12 +1,12 @@
 #Used annotations so that it is not required to create
 #Certificate resource manually
-apiVersion: extensions/v1beta1
+apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: home
   annotations:
     kubernetes.io/ingress.class: "nginx"    
-    cert-manager.io/issuer: "letsencrypt-cluster-issuer"
+    cert-manager.io/cluster-issuer: "letsencrypt-cluster-issuer"
 
 spec:
   tls:
@@ -18,6 +18,9 @@ spec:
     http:
       paths:
       - path: /
+        pathType: Prefix
         backend:
-          serviceName: home
-          servicePort: 80
+          service:
+            name: home-nginx 
+            port:
+              number: 80

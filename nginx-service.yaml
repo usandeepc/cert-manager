@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: home-nginx
+  labels:
+    run: home-nginx
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+  selector:
+          app: nginx
